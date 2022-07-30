@@ -1,0 +1,57 @@
+.circle {
+  border-radius: 50%;
+  background: #ff0000;
+  width: 12px;
+  height: 12px;
+  position: relative;
+  z-index: 3;
+  left: -5px;
+  top: 6px;
+}
+
+.box {
+  width: 400px;
+  height: 30px;
+  padding: 5px;
+  border: 1px solid black;
+  text-align: center;
+}
+
+.line {
+  height: 1px;
+  width: 400px;
+  background: linear-gradient(to right, #ff0000, #0000ff);
+  top: 15px;
+  left: 10px;
+}
+
+.buttons {
+  width: 400px;
+  margin-top: 20px;
+  padding: 5px;
+  border: 1px solid black;
+}
+
+#commit {
+  float: right;
+}
+
+.one {
+  width: 400px;
+  padding: none;
+  margin: none;
+  display: inline-block;
+}
+
+.real {
+  width: 150px;
+  float: right;
+}
+
+audio::-webkit-media-controls-mute-button {
+  display: none !important;
+}
+
+audio::-webkit-media-controls-volume-slider {
+  display: none !important;
+}

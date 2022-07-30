@@ -1,0 +1,204 @@
+<html>
+  <head>
+    <link href="main.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="box">
+      <div class="circle" id="mover"></div>
+      <div class="line"></div>
+    </div>
+    <h1>참 쓸데없는 볼륨 조절 방식</h1>
+    <p id="vol">현재 볼륨 : 0%</p>
+    <p>이 코드의 물리엔진은 매우 부정확합니다. 여러분이 사용하시는 공식들과 다르게 작동합니다.</p>
+    <audio id="example" controls>
+      <source src="assets/music.mp3" type="audio/mp3">
+    </audio>
+    <div class="buttons">
+      <div class="prozone">
+        <label for="promode">고급 설정 메뉴 활성화</label>
+        <input id="promode" type="checkbox" onclick='promodecheck()'>
+        <input id="commit" type="button" value="실행하기!" onclick='superphysic()'>
+      </div>
+      <p>슬라이더의 길이는 100m를 기준으로 합니다</p>
+      <div class="one">
+        <label for="weight">둥근 부분 질량(kg):</label>
+        <input id="weight" type="number" class="real">
+      </div>
+      <div class="one">
+        <label for="v0">둥근 부분 초기 속도(m/s)(오른쪽이 +):</label>
+        <input id="v0" type="number" style="width: 100px; float:right;">
+      </div>
+      <div class="one">
+        <label for="akckfstop">둥근 부분과 슬라이더 정지마찰계수:</label>
+        <input id="akckfstop" type="number" style="width:100px; float:right;">
+      </div>
+      <div class="one">
+        <label for="akckfmove">둥근 부분과 슬라이더 운동마찰계수:</label>
+        <input id="akckfmove" type="number" style="width:100px; float:right;">
+      </div>
+      <p class="pro">고급 설정 메뉴</p>
+      <div class="one pro">
+        <label for="angle">슬라이더의 경사(도):</label>
+        <input id="angle" type="number" class="real" disabled="true" value="0">
+      </div>
+      <div class="one pro">
+        <label for="collision">슬라이더 끝과 둥근 부분 반발계수:</label>
+        <input id="collision" type="number" style="width: 100px; float:right;" disabled="true" value="0">
+      </div>
+      <div class="one pro">
+        <label for="endtime">종료 시 시간(s):</label>
+        <input id="endtime" type="number" class="real" disabled="true" value="10">
+      </div>
+      <div class="one pro">
+        <label for="gravity">중력가속도:</label>
+        <input id="gravity" type="number" class="real" disabled="true" value="9.8">
+      </div>
+      <div class="one pro">
+        <label for="deltaT">시뮬레이션하는 단위 시간(ms):</label>
+        <input id="deltaT" type="number" class="real" disabled="true" value="10">
+      </div>
+    </div>
+
+    <script>
+      window.customPosition = 0;
+      let controls = document.getElementById('example');
+      controls.volume = 0;
+      function promodecheck(){
+        if(document.getElementById("promode").checked){
+          document.getElementById("angle").disabled = false;
+          document.getElementById("collision").disabled = false;
+          document.getElementById("endtime").disabled = false;
+          document.getElementById("gravity").disabled = false;
+          document.getElementById("deltaT").disabled = false;
+        }
+        else{
+          document.getElementById("angle").disabled = true;
+          document.getElementById("angle").value = 0;
+          document.getElementById("collision").disabled = true;
+          document.getElementById("collision").value = 0;
+          document.getElementById("endtime").disabled = true;
+          document.getElementById("endtime").value = 10;
+          document.getElementById("gravity").disabled = true;
+          document.getElementById("gravity").value = 9.8;
+          document.getElementById("deltaT").disabled = true;
+          document.getElementById("deltaT").value = 10;
+        }
+      }
+
+      function superphysic(){
+        document.getElementById('commit').disabled = true;
+        // define constants
+        const weight = parseFloat(document.getElementById("weight").value);
+        const v0 = parseFloat(document.getElementById("v0").value);
+        const akckfstop = parseFloat(document.getElementById("akckfstop").value);
+        const akckfmove = parseFloat(document.getElementById("akckfmove").value);
+        const angle = parseFloat(document.getElementById("angle").value);
+        const collision = parseFloat(document.getElementById("collision").value);
+        const endtime = parseFloat(document.getElementById("endtime").value);
+        const gravity = parseFloat(document.getElementById("gravity").value);
+        const deltaT = parseFloat(document.getElementById("deltaT").value);
+
+        if(isNaN(weight)){
+          alert("질량을 입력해주세요");
+          document.getElementById('commit').disabled = false;
+          return;
+        }
+        if(isNaN(v0)){
+          alert("초기 속도를 입력해주세요");
+          document.getElementById('commit').disabled = false;
+          return;
+        }
+        if(isNaN(akckfstop)){
+          alert("슬라이더 정지마찰계수를 입력해주세요");
+          document.getElementById('commit').disabled = false;
+          return;
+        }
+        if(isNaN(akckfmove)){
+          alert("슬라이더 운동마찰계수를 입력해주세요");
+          document.getElementById('commit').disabled = false;
+          return;
+        }
+        if(isNaN(angle)){
+          alert("슬라이더의 경사를 입력해주세요");
+          document.getElementById('commit').disabled = false;
+          return;
+        }
+        if(isNaN(collision)){
+          alert("슬라이더 끝과 둥근 부분 반발계수를 입력해주세요");
+          document.getElementById('commit').disabled = false;
+          return;
+        }
+        if(isNaN(endtime)){
+          alert("종료 시 시간을 입력해주세요");
+          document.getElementById('commit').disabled = false;
+          return;
+        }
+        if(isNaN(gravity)){
+          alert("중력가속도를 입력해주세요");
+          document.getElementById('commit').disabled = false;
+          return;
+        }
+        if(isNaN(deltaT)){
+          alert("시뮬레이션하는 단위 시간을 입력해주세요");
+          document.getElementById('commit').disabled = false;
+          return;
+        }
+        
+        // define variables
+        let force = 0;
+        let acceleration = 0;
+        let speed = v0;
+        let position = window.customPosition;
+
+        // chosse html dom
+        let mover = document.getElementById("mover");
+
+        // do simulation
+        let epoch = Math.floor((endtime/deltaT)*1000);
+        let engine = setInterval(function(){
+          if(epoch > 0){
+            // calculate force_X
+            force = weight*gravity*Math.sin(angle*(Math.PI/180)); // gravity force
+            if(speed < 1 *(deltaT/100) && speed > -1 * (deltaT/100)){
+              let akckfforce = Math.sign(speed)*weight*gravity*Math.cos(angle*(Math.PI/180))*akckfstop*-1;
+              if(akckfforce*force<=0 && Math.abs(akckfforce)>=Math.abs(force)){
+                force = 0;
+              }else{
+                force += akckfforce;
+              }
+            }
+            else{
+              let akckfforce = Math.sign(speed)*weight*gravity*Math.cos(angle*(Math.PI/180))*akckfmove*-1;
+              force += akckfforce;
+            }
+
+            // calculate acceleration_X
+            acceleration = force/weight;
+
+            // calculate speed_X
+            speed = speed + acceleration*(deltaT/1000);
+
+            position = position + speed*(deltaT/1000);
+
+            if(position >= 100){
+              position = 200 - position;
+              speed = -1 * collision * speed;
+            }else if(position <= 0){
+              position *= -1;
+              speed = -1 * collision * speed;
+            }
+            mover.style.transform = "translate(" + position * 4 + "px)";
+            window.customPosition = position;
+            document.getElementById("vol").innerText = "현재 볼륨 : "+ position + "%"
+            controls.volume = position/100;
+            epoch--;
+          }
+          else{
+            document.getElementById('commit').disabled = false;
+            clearInterval(engine);
+          }
+        }, deltaT);
+      }
+    </script>
+  </body>
+</html>
