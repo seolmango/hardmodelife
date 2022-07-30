@@ -42,6 +42,6 @@ swITch Main Theme
 
 Produced & Composed by H
 Mix & Mastered by H
-Cover artwork by Seolmango [깃헙](github.com/Seolmango)
+Cover artwork by Seolmango [깃헙](https://github.com/Seolmango)
 
 [음악 듣기](https://soundcloud.com/hraver/switchover?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing)
