@@ -6,7 +6,7 @@
 
 1. physicsVolume
 
-![example](/physicsVolume/example.png)
+<center><img src="/physicsVolume/example.png" style="width:80%;"></center>
 
 볼륨 조절을 위해 여러 물리값들을 설정하고 시뮬레이션해보세요!
 
