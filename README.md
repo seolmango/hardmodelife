@@ -12,7 +12,7 @@
 
 [Live Demo](https://seolmango.github.io/hardmodelife/physicsVolume)
 
-[Github](https://github.com/seolmango/hardmodelife/physicsVolume)
+[Github](https://github.com/seolmango/hardmodelife/tree/main/physicsVolume)
 
 ## 아이디어 받아요!
 
