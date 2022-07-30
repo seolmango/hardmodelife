@@ -18,7 +18,7 @@
       </div>
       <p>슬라이더의 길이는 100m를 기준으로 합니다</p>
       <div class="one">
-        <label for="weight">둥근 부분 무게(kg):</label>
+        <label for="weight">둥근 부분 질량(kg):</label>
         <input id="weight" type="number" class="real">
       </div>
       <div class="one">
@@ -27,11 +27,11 @@
       </div>
       <div class="one">
         <label for="akckfstop">둥근 부분과 슬라이더 정지마찰계수:</label>
-        <input id="akckfstop" type="number" style="width:100px; float:right;" min="0" max="1">
+        <input id="akckfstop" type="number" style="width:100px; float:right;">
       </div>
       <div class="one">
         <label for="akckfmove">둥근 부분과 슬라이더 운동마찰계수:</label>
-        <input id="akckfmove" type="number" style="width:100px; float:right;" min="0" max="1">
+        <input id="akckfmove" type="number" style="width:100px; float:right;">
       </div>
       <p class="pro">고급 설정 메뉴</p>
       <div class="one pro">
@@ -57,6 +57,7 @@
     </div>
 
     <script>
+      window.customPosition = 0;
       function promodecheck(){
         if(document.getElementById("promode").checked){
           document.getElementById("angle").disabled = false;
@@ -96,7 +97,7 @@
         let force = 0;
         let acceleration = 0;
         let speed = v0;
-        let position = (document.getElementById("mover").style.left+5)/4;
+        let position = window.customPosition;
 
         // chosse html dom
         let mover = document.getElementById("mover");
@@ -136,6 +137,7 @@
               speed = -1 * collision * speed;
             }
             mover.style.transform = "translate(" + position * 4 + "px)";
+            window.customPosition = position;
             document.getElementById("vol").innerText = "현재 볼륨 : "+ position + "%"
             epoch--;
           }
